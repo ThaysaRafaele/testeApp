@@ -3,6 +3,7 @@ import './App.css';
 
 function App() {
   const [formData, setFormData] = useState({
+    id: null, // para identificar o usuário a ser editado
     name: '',
     email: '',
     cep: '',
@@ -13,7 +14,6 @@ function App() {
   const HandleSubmit = async (e) => {
     e.preventDefault();
 
-    // Revalida os campos no envio
     const newErrors = {
       name: validateField('name', formData.name),
       email: validateField('email', formData.email),
@@ -22,27 +22,41 @@ function App() {
 
     setErrors(newErrors);
 
-    // Verifica erros
     if (Object.values(newErrors).some((err) => err !== '')) {
-      return; 
+      return;
     }
 
     try {
-      const response = await fetch('http://localhost:3000/users', {
-        method: 'POST',
+      const url = formData.id
+        ? `http://localhost:3000/users/${formData.id}` // Editar usuário
+        : 'http://localhost:3000/users'; // Criar usuário
+
+      const method = formData.id ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
+
       const result = await response.json();
 
       if (result.error) {
         alert(result.error);
       } else {
-        alert('Usuário cadastrado com sucesso!');
-        // Atualizar a lista de usuários
-        setList([...list, result]);
-        setFormData({ name: '', email: '', cep: '' }); // Limpar o formulário
-        setErrors({ name: '', email: '', cep: '' }); // Limpar os erros
+        alert(formData.id ? 'Usuário atualizado com sucesso!' : 'Usuário cadastrado com sucesso!');
+        if (formData.id) {
+          // lista com o usuário editado
+          setList((prevList) =>
+            prevList.map((user) =>
+              user.id === formData.id ? result : user
+            )
+          );
+        } else {
+          setList([...list, result]);
+        }
+        setFormData({ id: null, name: '', email: '', cep: '' }); 
+        setErrors({ name: '', email: '', cep: '' }); 
       }
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
@@ -51,9 +65,8 @@ function App() {
 
   const HandleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData({ ...formData, [name]: value });
-    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) })); // Valida
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
   const validateField = (fieldName, value) => {
@@ -82,7 +95,7 @@ function App() {
   };
 
   const handleEdit = (user) => {
-    setFormData(user);
+    setFormData(user); 
   };
 
   return (
@@ -90,6 +103,7 @@ function App() {
       <div>
         <h2>Formulário</h2>
       </div>
+      <h1>Vite + React</h1>
 
       <form onSubmit={HandleSubmit}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -124,15 +138,15 @@ function App() {
           {errors.cep && <span style={{ color: 'red', fontSize: '0.9rem' }}>{errors.cep}</span>}
 
           <button type="submit" style={{ marginTop: '1rem' }}>
-            Enviar
+            {formData.id ? 'Atualizar' : 'Cadastrar'}
           </button>
         </div>
       </form>
 
       <h3>Listagem de Usuários</h3>
       <ul>
-        {list.map((user, index) => (
-          <li key={index}>
+        {list.map((user) => (
+          <li key={user.id}>
             {user.name} - {user.email} - {user.cep}{' '}
             <button onClick={() => handleEdit(user)}>Editar</button>
           </li>
