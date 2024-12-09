@@ -103,7 +103,6 @@ function App() {
       <div>
         <h2>Formulário</h2>
       </div>
-      <h1>Vite + React</h1>
 
       <form onSubmit={HandleSubmit}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -115,7 +114,7 @@ function App() {
             onChange={HandleChange}
             style={{ marginBottom: '0.5rem' }}
           />
-          {errors.name && <span style={{ color: 'red', fontSize: '0.9rem' }}>{errors.name}</span>}
+          {errors.name && <span className='erro'>{errors.name}</span>}
 
           <label>Email:</label>
           <input
@@ -125,7 +124,7 @@ function App() {
             onChange={HandleChange}
             style={{ marginBottom: '0.5rem' }}
           />
-          {errors.email && <span style={{ color: 'red', fontSize: '0.9rem' }}>{errors.email}</span>}
+          {errors.email && <span className='erro'>{errors.email}</span>}
 
           <label htmlFor="cep">CEP:</label>
           <input
@@ -135,7 +134,7 @@ function App() {
             onChange={HandleChange}
             style={{ marginBottom: '0.5rem' }}
           />
-          {errors.cep && <span style={{ color: 'red', fontSize: '0.9rem' }}>{errors.cep}</span>}
+          {errors.cep && <span className='erro'>{errors.cep}</span>}
 
           <button type="submit" style={{ marginTop: '1rem' }}>
             {formData.id ? 'Atualizar' : 'Cadastrar'}
@@ -148,7 +147,7 @@ function App() {
         {list.map((user) => (
           <li key={user.id}>
             {user.name} - {user.email} - {user.cep}{' '}
-            <button onClick={() => handleEdit(user)}>Editar</button>
+            <button className='editar' onClick={() => handleEdit(user)}>Editar</button>
           </li>
         ))}
       </ul>

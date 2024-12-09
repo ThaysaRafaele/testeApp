@@ -3,40 +3,107 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color: #E41F7B;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+form {
+  background-color: #FF8BA0;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  max-width: 500px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border: 2px solid #E41F7B;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+input:focus {
+  outline: none;
+  border-color: #FF8BA0;
+  box-shadow: 0 0 5px rgba(255, 139, 160, 0.5);
 }
 
-.card {
-  padding: 2em;
+label {
+  display: block;
+  text-align: left;
+  margin-top: 1rem;
+  color: white;
+  font-weight: bold;
 }
 
-.read-the-docs {
-  color: #888;
+button {
+  background-color: #E41F7B;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+}
+
+.erro{
+  color: #86003C;
+  font-size: 1rem;
+}
+
+.editar {  
+  margin-left: 1.5rem;
+}
+
+button:hover {
+  background-color: #86003C;
+  transform: translateY(-2px);
+}
+
+.editar:hover {
+  background-color: #FF8BA0;
+  transform: translateY(-2px);
+}
+
+h2, h3 {
+  color: #FF8BA0;
+  margin: 2rem 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+li {
+  background-color: #86003C;
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #FF8BA0;
+}
+
+li button {
+  background-color: #E41F7B;
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+
+.error-message {
+  color: #FF8BA0;
+  font-size: 0.85rem;
+  text-align: left;
+  margin-top: 0.25rem;
 }
